@@ -45,7 +45,6 @@ def show_menu():
 
 def execute_profile():
     clear_screen()
-    print("Executing profile...")
     profiles = read_profiles_folder()
 
     if not profiles:
@@ -81,7 +80,10 @@ def execute_instructions(instructions, profile_name):
             x, y, wait_time, repeat = map(int, instruction)
             for _ in range(repeat):
                 pyautogui.click(x=x, y=y)
-                pyautogui.sleep(0.001)
+                if wait_time == -1:
+                    pyautogui.sleep(0.001)
+                else:
+                    pyautogui.sleep(wait_time / 1000)
 
             if not listener.is_alive():
                 return
